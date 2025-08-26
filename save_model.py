@@ -13,7 +13,7 @@ from tensorflow.keras.layers import Input, Dense, GRU, Masking, concatenate
 import tf2onnx
 
 
-weights_path = "/jet/home/rgupta9/A Organized Home/Anomaly Detection/astromcad/Models/NoHostClassifier_New.h5"
+weights_path = "/models/NoHostClassifier_New.h5"
 
 
 
@@ -69,11 +69,12 @@ def export_onnx(model, export_path):
 model = build_model(latent_size=100, ntimesteps=656, num_classes=12, contextual=0)
 
 model.load_weights(weights_path)
-new_model = keras.Model(inputs=model.input, outputs=model.get_layer('latent').output)
+# new_model = keras.Model(inputs=model.input, outputs=model.get_layer('latent').output)
+new_model = keras.Model(inputs=model.input, outputs=model.output)
 print(new_model.summary())
 
 # Export the model to ONNX format
-export_path = "exports/nohost.onnx"
+export_path = "exports/nohost_classifier.onnx"
 os.makedirs(os.path.dirname(export_path), exist_ok=True)
 export_onnx(new_model, export_path)
 
