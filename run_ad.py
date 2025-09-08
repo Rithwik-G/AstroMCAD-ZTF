@@ -89,4 +89,7 @@ def run_anomaly_detection(data_path=None):
 
 
 if __name__ == "__main__":
-    run_anomaly_detection()
+    parser = argparse.ArgumentParser(description="Run anomaly detection using ONNX models.")
+    parser.add_argument("data_path", nargs="?", default=None, help="Path to the input data file (.pickle or .csv)")
+    args = parser.parse_args()
+    run_anomaly_detection(data_path=args.data_path)

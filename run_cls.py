@@ -63,6 +63,7 @@ def run_classification(data_path=None):
         raise ValueError("Unsupported file format. Please provide a .pickle or .csv file.")
 
     print(input_data)
+    input_data = np.array(input_data)
 
     input_data = input_data.astype(np.float32)
     # Run inference
@@ -78,4 +79,7 @@ def run_classification(data_path=None):
 
 
 if __name__ == "__main__":
-    run_classification()
+    parser = argparse.ArgumentParser(description="Run anomaly detection using ONNX models.")
+    parser.add_argument("data_path", nargs="?", default=None, help="Path to the input data file (.pickle or .csv)")
+    args = parser.parse_args()
+    run_classification(data_path=args.data_path)
